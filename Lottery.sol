@@ -7,22 +7,29 @@ contract Lottery {
   address[] public players;
   
   constructor () {
-      manager = msg.sender;
+    manager = msg.sender;
   }
   
   function enter() public payable {
-      require(msg.value > 0.01 ether, "Minimum of 0.01 ETH required");
-      
-      players.push(msg.sender);
+    // Second argument is the error that's thrown
+    require(msg.value > 0.01 ether, "Minimum of 0.01 ETH required");
+    
+    players.push(msg.sender);
   }
 
   function pseudoRandom() private view returns (uint) {
+    // Uses three values to create a hash that is stored
+    // as a pseudorandom uint256
     return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, players)));
   }
 
   function pickWinner() public {
-      uint index = pseudoRandom() % players.length;
-      payable(players[index]).transfer(address(this).balance);
+    // Chooses an element/address from players array
+    uint index = pseudoRandom() % players.length;
+
+    // Assigns address as payable and transfers
+    // the contracts entire balance
+    payable(players[index]).transfer(address(this).balance);
   }
 }
 
