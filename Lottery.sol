@@ -30,6 +30,9 @@ contract Lottery {
     // Assigns address as payable and transfers
     // the contracts entire balance
     payable(players[index]).transfer(address(this).balance);
+
+    // Clears the players array to reset the game
+    players = new address[](0);
   }
 }
 
