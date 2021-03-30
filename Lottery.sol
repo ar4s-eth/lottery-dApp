@@ -9,4 +9,10 @@ contract Lottery {
     constructor () {
         manager = msg.sender;
     }
+    
+    function enter() public payable {
+        require(msg.value > 0.01 ether, "Minimum of 0.01 ETH required");
+        
+        players.push(msg.sender);
+    }
 }
