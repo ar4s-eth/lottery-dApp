@@ -48,10 +48,12 @@ describe('Lottery Contract', () => {
       from: accounts[0],
       value: web3.utils.toWei('0.02', 'ether')
     });
+
     await lottery.methods.enter().send({
       from: accounts[1],
       value: web3.utils.toWei('0.02', 'ether')
     });
+    
     await lottery.methods.enter().send({
       from: accounts[2],
       value: web3.utils.toWei('0.02', 'ether')
