@@ -53,7 +53,7 @@ describe('Lottery Contract', () => {
       from: accounts[1],
       value: web3.utils.toWei('0.02', 'ether')
     });
-    
+
     await lottery.methods.enter().send({
       from: accounts[2],
       value: web3.utils.toWei('0.02', 'ether')
@@ -68,4 +68,17 @@ describe('Lottery Contract', () => {
     assert.strictEqual(accounts[2], players[2]);
     assert.strictEqual(3, players.length);
   });
+
+  it('Should fail if not enough Ether is sent', async () => {
+    let e;
+    try {
+      await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.001', 'ether')
+      })
+    } catch (err) {
+      e = err;
+    }
+    assert(e);
+  })
 })
