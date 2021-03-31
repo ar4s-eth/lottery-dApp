@@ -7,7 +7,7 @@ const lotteryPath = path.resolve(__dirname, 'contracts', 'Lottery.sol');
 const input = {
   language: 'Solidity',
   sources: {
-    'Inbox.sol': {
+    'Lottery.sol': {
       content: fs.readFileSync(lotteryPath, 'utf8')
     }
   },
@@ -20,11 +20,8 @@ const input = {
   }
 };
 
-const output = JSON.parse(solc.compile(JSON.stringify(input)));
-//console.log(output.contracts['Inbox.sol']['Inbox'].abi);
-//console.log(output.contracts['Inbox.sol']['Inbox']['evm'].bytecode); to get bytecode
-module.exports = output.contracts['Lottery.sol']['Lottery'];
+const output = JSON.parse(solc.compile(JSON.stringify(input))).contracts['Lottery.sol'];
 
-// const source = fs.readFileSync(inboxPath, 'utf8');
-
-// module.exports = solc.compile(source, 1).contracts[':Inbox'];
+for (let contract in output) {
+  module.exports = output[contract];
+}

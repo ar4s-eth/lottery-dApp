@@ -5,7 +5,8 @@ const Web3 = require('web3');
 const provider = ganache.provider();
 const web3 = new Web3(provider);
 
-const { interface, bytecode } = require('../compile');
+const interface = require('../compile').abi;
+const bytecode = require('../compile').evm.bytecode.object;
 
 let accounts;
 let lottery;
@@ -16,9 +17,15 @@ beforeEach(async () => {
 
   // Use one of those accounts to deploy
   // a contract
-  lottery = await new web3.eth.Contract(JSON.parse(interface))
+  lottery = await new web3.eth.Contract(interface)
     .deploy({ data: bytecode })
     .send({ from: accounts[0], gas: '1000000' });
 
-  inbox.setProvider(provider);
+  lottery.setProvider(provider);
 });
+
+describe('Lottery Contract', () => {
+  it('Should deploy a contract', () => {
+    assert.ok(lottery.options.address);
+  })
+})
