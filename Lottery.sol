@@ -10,7 +10,7 @@ contract Lottery {
     admin = msg.sender;
   }
 
-  modifier onlyadmin {
+  modifier onlyAdmin {
     require(msg.sender == admin, "You need to be the admin to pick a winner");
     _;
   }
@@ -28,7 +28,7 @@ contract Lottery {
     return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, players)));
   }
 
-  function pickWinner() public onlyadmin {
+  function pickWinner() public onlyAdmin {
     // Chooses an element/address from players array
     uint index = pseudoRandom() % players.length;
 
@@ -38,6 +38,10 @@ contract Lottery {
 
     // Clears the players array to reset the game
     players = new address[](0);
+  }
+
+  function getPlayers() public view returns (address[] memory) {
+    return players;
   }
 }
 
