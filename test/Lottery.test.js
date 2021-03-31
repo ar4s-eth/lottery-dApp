@@ -82,7 +82,7 @@ describe('Lottery Contract', () => {
     assert(e);
   })
 
-  it('Should only let manager pick winner', async () => {
+  it('Should fail if manager does not pick winner', async () => {
     try {
       await lottery.methods.enter().send({
         from: accounts[0],
