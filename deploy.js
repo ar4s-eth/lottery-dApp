@@ -14,7 +14,7 @@ const deploy = async () => {
   // let limit = await web3.eth.getGasPrice().then(x => { return x })
 
   const result = await new web3.eth.Contract(abi)
-    .deploy({ data: bytecode, arguments: ['Hello World'] })
+    .deploy({ data: bytecode })
     .send({ gas: 5000000, gasPrice: 5000000000, from: accounts[0] });
   
   return console.log('Contract deployed to: ', result.options.address);
