@@ -69,7 +69,7 @@ describe('Lottery Contract', () => {
     assert.strictEqual(3, players.length);
   });
 
-  it('Should fail if not enough Ether is sent', async () => {
+  it('Should fail if not enough Eth is sent', async () => {
     let e;
     try {
       await lottery.methods.enter().send({
