@@ -9,6 +9,11 @@ contract Lottery {
   constructor () {
     manager = msg.sender;
   }
+
+  modifier onlyManager {
+    require(msg.sender == manager, "You need to be the manager to pick a winner");
+    _;
+  }
   
   function enter() public payable {
     // Second argument is the error that's thrown
@@ -19,11 +24,11 @@ contract Lottery {
 
   function pseudoRandom() private view returns (uint) {
     // Uses three values to create a hash that is stored
-    // as a pseudorandom uint256
+    // as a pseudo-random uint256
     return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, players)));
   }
 
-  function pickWinner() public {
+  function pickWinner() public onlyManager {
     // Chooses an element/address from players array
     uint index = pseudoRandom() % players.length;
 
