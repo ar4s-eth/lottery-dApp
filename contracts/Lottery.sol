@@ -29,6 +29,9 @@ contract Lottery {
   }
 
   function pickWinner() public onlyAdmin {
+    // Exits the function if there are no players
+    require(players.length > 0);
+    
     // Chooses an element/address from players array
     uint index = pseudoRandom() % players.length;
 

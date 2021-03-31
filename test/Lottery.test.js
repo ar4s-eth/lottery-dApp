@@ -81,4 +81,20 @@ describe('Lottery Contract', () => {
     }
     assert(e);
   })
+
+  it('Should only let manager pick winner', async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei('0.02', 'ether')
+      });
+      await lottery.methods.pickWinner().send({
+        from: accounts[1]
+      });
+    } catch (err) {
+      assert(true);
+      return;
+    }
+    assert(false);
+  })
 })
