@@ -3,15 +3,15 @@
 pragma solidity ^0.8.3;
 
 contract Lottery {
-  address public manager;
+  address public admin;
   address[] public players;
   
   constructor () {
-    manager = msg.sender;
+    admin = msg.sender;
   }
 
-  modifier onlyManager {
-    require(msg.sender == manager, "You need to be the manager to pick a winner");
+  modifier onlyadmin {
+    require(msg.sender == admin, "You need to be the admin to pick a winner");
     _;
   }
   
@@ -28,7 +28,7 @@ contract Lottery {
     return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, players)));
   }
 
-  function pickWinner() public onlyManager {
+  function pickWinner() public onlyadmin {
     // Chooses an element/address from players array
     uint index = pseudoRandom() % players.length;
 
