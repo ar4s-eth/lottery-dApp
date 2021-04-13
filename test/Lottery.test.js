@@ -41,7 +41,7 @@ describe('Lottery Contract', () => {
 
     assert.strictEqual(accounts[0], players[0]);
     assert.strictEqual(1, players.length);
-  })
+  });
 
   it('Should allow multiple accounts to enter', async () => {
     await lottery.methods.enter().send({
@@ -69,7 +69,7 @@ describe('Lottery Contract', () => {
     assert.strictEqual(3, players.length);
   });
 
-  it('Should fail if not enough Eth is sent', async () => {
+  it('Should fail if not enough ETH is sent', async () => {
     let e;
     try {
       await lottery.methods.enter().send({
@@ -80,7 +80,7 @@ describe('Lottery Contract', () => {
       e = err;
     }
     assert(e);
-  })
+  });
 
   it('Should fail if manager does not pick winner', async () => {
     try {
@@ -96,13 +96,13 @@ describe('Lottery Contract', () => {
       return;
     }
     assert(false);
-  })
+  });
+
   it('Should send money to the winner and reset the players array', async() => {
     await lottery.methods.enter().send({
       from: accounts[0],
       value: web3.utils.toWei('2', 'ether')
     });
-
 
     // Account Balances
     const initialBalance = await web3.eth.getBalance(accounts[0]);
@@ -123,5 +123,5 @@ describe('Lottery Contract', () => {
     const balance = await web3.eth.getBalance(lottery.options.address);
     
     assert.strictEqual(0, Number(balance));
-  })
-})
+  });
+});

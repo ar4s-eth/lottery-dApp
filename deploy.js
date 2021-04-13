@@ -17,6 +17,7 @@ const deploy = async () => {
     .deploy({ data: bytecode })
     .send({ gas: 5000000, gasPrice: 5000000000, from: accounts[0] });
   
+  console.log(abi);
   return console.log('Contract deployed to: ', result.options.address);
 };
 
