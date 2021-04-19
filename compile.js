@@ -24,4 +24,5 @@ const output = JSON.parse(solc.compile(JSON.stringify(input))).contracts['Lotter
 
 for (let contract in output) {
   module.exports = output[contract];
-}
+  console.log('Contract abi \n', JSON.stringify(output[contract].abi));
+};
